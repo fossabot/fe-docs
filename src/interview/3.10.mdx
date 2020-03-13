@@ -105,6 +105,21 @@ import 'antd/dist/antd.css'
 </Playground>
 
 2. http状态码 203， 401
+
+* [203(Non-Authoritative Infomation)](https://tools.ietf.org/html/rfc7231#section-6.3.4)
+```    
+当通过代理访问原服务器时，若在成功获取原内容的前提下代理对内容进行了部分修改(比如编码格式等)，
+代理通过这个状态码告知用户内容为成功获取的，但是可能与原始服务器返回的内容不完全一致
+```
+* [401(Unauthorized)](https://tools.ietf.org/html/rfc7235#section-3.1)
+```
+HTTP 401.1 – 未授权：登录失败
+HTTP 401.2 – 未授权：服务器配置问题导致登录失败
+HTTP 401.3 – ACL 禁止访问资源
+HTTP 401.4 – 未授权：授权被筛选器拒绝
+HTTP 401.5 – 未授权：ISAPI 或 CGI 授权失败
+```
+
 3. vue的data为什么是个函数
 4. vuex如何监听状态改变
 5. vue组件之间通信
