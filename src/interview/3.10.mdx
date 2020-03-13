@@ -1,0 +1,114 @@
+---
+name: 3.10面试题
+menu: interview
+route: /interview/310
+---
+
+import { Playground } from 'docz'
+import { Vertical } from './code'
+import { Button, Layout, Typography, Radio, Alert } from 'antd'
+import styles from './code.module.less'
+import 'antd/dist/antd.css'
+
+1.  垂直水平居中    
+
+<Playground>
+  {() => {
+    // 这个地方用style的原因是为了更直观的展示样式的作用
+    const wordStyleArray = [
+      {
+        textAlign: 'center',
+        lineHeight: '40px',
+        height: '40px'
+      },
+      {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    ]
+    const blockStyleArray = [
+      {
+        margin: '0 auto'
+      }, 
+      {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        margin: 'auto'
+      },
+      {},
+      {
+        display: 'inline-block'
+      },
+      {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)'
+      }
+    ]
+    const blockParentStyleArray = [
+      {
+        paddingTop: '25px'
+      },
+      {},
+      {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      },
+      {
+        display: 'table-cell',
+        verticalAlign: 'middle',
+        textAlign: 'center'
+      },
+      {}
+    ]
+    const wordTypeTip = [ '已知元素大小', 'Flex' ]
+    const blockTypeTip = [ '已知子元素大小', '未知子元素大小', 'Flex', 'Table', 'Absolute + Transform' ]
+    const [ wordType, setWordType ] = React.useState(0)
+    const [ blockType, setBlockType ] = React.useState(0)
+    return (
+      <Layout.Content className={ styles.commonContainer }>
+        <Typography.Title level={ 4 }>文字类</Typography.Title>
+        <p style={ wordStyleArray[ wordType ] }>{ wordTypeTip[wordType] }</p>
+        <Radio.Group 
+          onChange={ e => setWordType(e.target.value) }
+          value={ wordType }
+        > 
+          {
+            wordTypeTip.map((tip, idx) => (
+              <Radio value={ idx }>{ tip }</Radio>
+            ))
+          }
+        </Radio.Group>
+        <Typography.Title level={ 4 } style={ { marginTop: '20px' } }>元素类</Typography.Title>
+        <div style={ blockParentStyleArray[ blockType ] } className={ styles.commonBlockContainer }>
+          <div className={ styles[ blockType === 0 ? 'commonBlock' : 'commonUnknow' ] } style={ blockStyleArray[ blockType ] } />
+        </div>
+        <Radio.Group 
+          onChange={ e => setBlockType(e.target.value) }
+          value={ blockType }
+        > 
+          {
+            blockTypeTip.map((tip, idx) => (
+              <Radio value={ idx }>{ tip }</Radio>
+            ))
+          }
+        </Radio.Group>
+      </Layout.Content>
+    )
+  }}
+</Playground>
+
+2. http状态码 203， 401
+3. vue的data为什么是个函数
+4. vuex如何监听状态改变
+5. vue组件之间通信
+6. fiddler调试，抓包，请求前与请求后数据拦截
+
+
+> 此系列的题目均由7酱友情提供，解答是我自己随便回答的，有问题的话不要说
