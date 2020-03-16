@@ -4,13 +4,61 @@ menu: interview
 route: /interview/312
 ---
 
+import { Playground } from 'docz'
+
 1. js异步编程方式有哪几种，promise.all用法
 2. vue  nextTick用法
 3. 防抖节流，实现一个防抖
 4. [[1,2,3],[8,9],[6,7],[[12,2,20]]]扁平化、去重、排序
-5. vue父子，兄弟通信    
+
+<Playground>
+  {() => {
+    var originArray = [[1,2,3],[8,9],[6,7],[[12,2,20]]];
+    var formatArray = [ ... new Set(originArray.flat(2)) ].sort((a, b) => a- b)
+    return (
+      <p style={ { color: 'white' } }>
+        {
+          formatArray
+        }
+      </p>
+    )
+  }}
+</Playground>
+
+5. vue父子，兄弟通信  
+```
+1. 父子
+props、 emit
+2. 兄弟
+通过父组件的props和emit或使用status bus
+
+上面均可使用vuex来通信
+```
+
 6. 介绍一下原型与原型链
 7. vuex的mutation跟action，mapState
+```
+mutation和action的区别见310的第4问。
+mapState: 当一个组件需要获取多个状态的时候，单独声明这些属性为计算属性会略显重复和冗余，可以使用mapState来辅助生成。
+```
+```javascript
+<script>
+  export default {
+    computed: mapState([
+      'count'
+    ])
+
+    computed: mapState({
+      count: state => state.count
+    })
+
+    computed: {
+      prevState() {},
+      ...mapState({ ... })
+    }
+  }
+</script>
+```
 
 
 

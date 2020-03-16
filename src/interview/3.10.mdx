@@ -117,12 +117,34 @@ HTTP 401.1 – 未授权：登录失败
 HTTP 401.2 – 未授权：服务器配置问题导致登录失败
 HTTP 401.3 – ACL 禁止访问资源
 HTTP 401.4 – 未授权：授权被筛选器拒绝
-HTTP 401.5 – 未授权：ISAPI 或 CGI 授权失败
+HTTP 401.5 – 未授权：ISAPI 或 CGI 授权失败    
+401 表示发送的请求需要认证信息，如若之前请求过则认为认证失败。
+```   
+
+3. vue的data为什么是个函数    
+
+```
+一个组件的data选项必须是一个函数，因为这样每个实例都可以维护一份被返回对象的独立的拷贝。
 ```
 
-3. vue的data为什么是个函数
 4. vuex如何监听状态改变
+
+```
+组件发起commit -> ( action ) -> mutation
+或者使用mapMutations将mutation映射到组件的methods里
+这当中action是可以没有的，action类似于mutation，但action提交的是mutation而不是直接变更状态，action中可以包含任意异步操作，
+而mutation只能是同步函数，因为这会让状态的改变变得不可跟踪。
+```
+
 5. vue组件之间通信
+
+```markdown
+1. vuex
+2. props
+3. emit
+4. status bus [https://cn.vuejs.org/v2/guide/state-management.html#%E7%AE%80%E5%8D%95%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E8%B5%B7%E6%AD%A5%E4%BD%BF%E7%94%A8]
+```
+
 6. fiddler调试，抓包，请求前与请求后数据拦截
 
 
