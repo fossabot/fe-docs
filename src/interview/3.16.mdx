@@ -1,0 +1,90 @@
+---
+name: 3.16面试题
+menu: interview
+route: /interview/316
+---
+import { Playground } from 'docz'
+
+1. 两个小程序项目合并，appid冲突问题
+```
+不明所以， 先认为是处理openid和unionid问题
+若为同一开放平台主体下的两个小程序无需关心
+若不为则需重新获取openid处理用户。
+```
+
+2. 浏览器本地存储与http缓存
+```markdown
+本地存储有cookie, sessionStorage, localStorage(indexDB不说)
+cookie: 标识用户身份并存储在用户本地终端上的数据，一般均会加密，始终在同源的http请求中携带在浏览器和服务器间来回传递， 大小不超过4k，设置时效内一直有效
+sessionStorage: 存储在浏览器本地， 大小5M或以上， 数据在浏览器窗口关闭之后自动删除。
+localStorage:  存储在浏览器本地， 大小5M或以上， 数据永久存储， 浏览器关闭后数据不丢失除非手动删除数据。
+indexDB: 浏览器本地提供的数据库， 允许存储大量数据， 提供查找接口， 可建立索引， 但不属于关系型数据库， 不支持SQL查询， 但支持事务， 异步， 且受到同源限制。
+```
+```
+http缓存
+http缓存指当客户端向服务端请求资源时会先抵达浏览器缓存，如若浏览器有要请求资源的副本时，则不去服务器中请求而从浏览器缓存中获取了。
+http缓存根据是否需要重新向服务器请求分为强制缓存和协商缓存， 根据是否可以被单个或者多个用户使用来分类分为私有缓存和共享缓存。
+强缓存如果生效，不需要再和服务器发生交互，而协商缓存不管是否生效都需要与服务端进行交互。
+```   
+&nbsp | 强缓存 | 协商缓存 
+- | :-: | -:
+缓存存放位置 | 本地浏览器 | 本地浏览器 
+http状态码 | 200 | 304
+header | Pragma<br/> Cache-Control<br/>Expires | ETag/ If-Not-Match <br/>Last-Modified/If-Modified-Since 
+```
+强缓存在缓存数据未失效的情况下(即Cache-Control的max-age或者Expires的缓存时间没有过期)会直接使用浏览器的缓存数据，不会向服务器发送任何请求，
+此时的页面加载速度是最快的，性能也最佳，但是这期间无论服务端的资源是否更改都不会更改页面上的内容。
+```
+header属性 | 可选值 | 优先级 | 优缺点 
+- | :-: | :-: | -:
+Pragma(HTTP/1.0) | no-cache: 不直接使用缓存， 根据新鲜度来使用缓存 | 高 | 1. 响应头不支持这个属性<br/>2. 为了兼容HTTP/1.0的客户端<br/>3. 在HTTP/1.1中已被废弃
+Cache-Control(HTTP/1.1) | 1. no-cache: 不直接使用缓存， 根据新鲜度来使用缓存<br/>2. no-store: 不使用缓存，每次都是请求下载新资源<br/>3. max-age: xx秒， 缓存时长<br/>4. public/private: 是否只能被单个用户使用，默认为private<br/>5. must-revalidate: 每次访问需要缓存校验 | 中 | 1. 请求头和响应头都支持这个属性<br/>2. 不适用于HTTP/1.0 <br/> 3. 在缓存未失效期，获取不到修改后的资源
+Expires(HTTP/1.0+) | GMT时间 | 低 | 1. 服务器和客户端的时间不一致会出问题<br/>2. 适用于HTTP/1.0和HTTP/1.1<br/>3. 在缓存未失效期， 获取不到修改后的资源
+```
+chrome 有自己的缓存策略: from memory cache(频率高) 和 from disk cache(频率低)
+```
+```
+协商缓存
+当第一次请求时服务器返回的响应头中没有Cache-Control和Expires或者Cache-Control和Expires过期还或者它的属性设置为no-cache时
+(即不走强缓存)，那么浏览器第二次请求时就会与服务器进行协商，与服务器端对比判断资源是否进行了修改更新。如果服务器端的资源没有修改，
+那么就会返回304状态码，告诉浏览器可以使用缓存中的数据，这样就减少了服务器的数据传输压力。如果数据有更新就会返回200状态码，服务
+器就会返回更新后的资源并且将缓存信息一起返回。跟协商缓存相关的header头属性有（ETag/If-Not-Match 、Last-Modified/
+If-Modified-Since）请求头和响应头需要成对出现
+```
+header属性 | 可选值 | 优先级 | 优缺点 
+- | :-: | :-: | -:
+ETag/If-Not-Match(HTTP/1.1) | 校验值 | 高 | 1. 默认使用hash算法，在分布式环境下可能会出现不同服务器生成的ETag值不一致<br/>2. 精确的判断资源有无被修改，可识别一秒内的修改次数<br/>3. 计算ETag需要性能消耗
+Last-Modified/If-Modified-Since(HTTP/1.0) | GMT时间 | 低 | 1. 只要资源修改，无论内容有无变化，都会将资源返回客户端<br/>2. 以时刻为标识，无法获取一秒内的修改变化<br/>3. 某些服务器不能准确获取最后的修改时间
+
+```html
+/* html内禁止缓存 */
+<meta http-equiv="cache-control" content="no-cache"/>
+<meta http-equiv="pragma" content="no-cache"/>
+<meta http-equiv="expires" content="0"/>
+
+/* html内使用缓存 */
+<meta http-equiv="cache-control" content="max-age=8000"/>
+<meta http-equiv="expires" content="Tue, 17 Mar 2020 09:50:31 GMT"/>
+```
+[更多meta标签使用方式参考](https://www.w3school.com.cn/tags/tag_meta.asp#meta_prop_http-equiv)    
+
+3. [1, 2, 3]=>[[1, 2], [1, 3], [2, 1], [2, 3], [3, 1], [3, 2]]
+
+<Playground>
+  {() => {
+    var originArray = [ 1, 2, 3 ], formatArray = []
+    originArray.forEach(v => {
+      originArray.filter(f => f !== v).forEach(t => formatArray.push([ v, t ]))
+    })
+    return (
+      <code>
+        { JSON.stringify(formatArray) }
+      </code>
+    )
+  }}
+</Playground>
+
+4. sdk开发的基本流程，构建流程
+
+
+> 此系列的题目均由7酱友情提供，解答是我自己随便回答的，有问题的话不要说
