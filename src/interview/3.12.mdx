@@ -7,8 +7,63 @@ route: /interview/312
 import { Playground } from 'docz'
 
 1. js异步编程方式有哪几种，promise.all用法
+```javascript
+// 1. async await
+async function fn() {}
+// 2. genertor yield
+function* fn() {}
+// 3. promise
+var fn = new Promise((resolve, reject) => {
+  if (xxx) {
+    resolve(res)
+  } else {
+    reject(error)
+  }
+})
+// 4. callback(ajax)
+ajax.get(url, () => {})
+// 5. event + addEventListener
+// promise.all
+var a = new Promise((resolve, reject) => resolve('a'))
+var b = new Promise((resolve, reject) => resolve('b'))
+var c = new Promise((resolve, reject) => resolve('c'))
+
+Promise.all([ a, b, c ]).then(([ ra, rb, rc ]) => {
+  console.log(ra, rb, rc)
+})
+// promise.race
+var d = new Promise((resolve, reject) => setTimeout(() => reject('d')), 1000)
+var e = new Promise((resolve, reject) => setTimeout(() => resolve('e')), 100)
+Promise.race([ d, e ]).then(res => console.log(res) ).catch(e => console.log(e)) // 结果是e
+```
+
 2. vue  nextTick用法
+```javascript
+// 在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM。
+Vue.nextTick(function () {
+  // dom updated
+})
+
+Vue.nextTick().then(() => {
+  // dom updated
+})
+
+// $nextTick 是直接绑定在实例上的，用法是一致的
+```
+
 3. 防抖节流，实现一个防抖
+```javascript
+// 当持续触发事件时，一段时间内没有再触发事件，事件处理函数才执行一次，若设定时间之前再次触发则重置延时。
+function debounce(fn, delay) {
+  var timer = null
+  return function () {
+    if timer clearTimeout(timer)
+    timer = setTimeout(fn, delay)
+  }
+}
+
+```
+
 4. [[1,2,3],[8,9],[6,7],[[12,2,20]]]扁平化、去重、排序
 
 <Playground>
@@ -27,10 +82,12 @@ import { Playground } from 'docz'
 
 5. vue父子，兄弟通信  
 ```
-1. 父子
-props、 emit
-2. 兄弟
-通过父组件的props和emit或使用status bus
+1. props
+2. emit
+3. event bus
+4. vuex
+5. slot prop
+6. inject provide
 
 上面均可使用vuex来通信
 ```
