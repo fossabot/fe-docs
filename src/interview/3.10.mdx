@@ -146,6 +146,18 @@ HTTP 401.5 – 未授权：ISAPI 或 CGI 授权失败
 ```
 
 6. fiddler调试，抓包，请求前与请求后数据拦截
+```
+# 针对macOS若调试https需前往setting -> https(勾选选项并导出证书)
+# 手机连接fiddler需在setting -> connections -> allow remote computers to connect勾选
+# 点击decode来解码数据
+
+# windows
+请求前: bpu http://xxx.com
+请求后: bpafter http://xxx.com
+
+# Charles
+直接在想要拦截的请求右键选择breakpoint即可操作。
+```
 
 
 > 此系列的题目均由7酱友情提供，解答是我自己随便回答的，有问题的话不要说
