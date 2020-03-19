@@ -54,7 +54,7 @@ this总是指向函数的直接调用者
 JSON | 有效的JSON | 无效的JSON
 typeof | object | undefined
 
-# parseInt
+# [parseInt](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/parseInt)
 ```
 parseInt(string, index)
 string: 要被解析的值。如果不是一个字符串尝试将其转换为字符串。字符串开头的空白字符串将会被忽略。
@@ -66,4 +66,22 @@ radix(可选): 从2～36， 代表该进位系统的数字。例如说指定10�
 parseInt('10', 2)  1*2^1 + 0*2^0 = 2
 
 [ "1", "2", "3" ].map(parseInt) => [ 1, NaN, NaN ]
+```
+
+# hasOwnProperty
+```
+该方法去检查属性的时候只会从当前对象本上去查找属性，不会顺着原型链去查找。
+```
+
+# new
+```js
+var emptyObject = {}
+emptyObject.__proto__ = Fnc.prototype
+Fnc.call(emptyObject)
+```
+
+# document.write vs innerHTML
+```
+document.write: 只能重绘整个页面
+innerHTML: 局部重绘
 ```
