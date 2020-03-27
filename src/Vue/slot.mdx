@@ -6,7 +6,7 @@ route: /Vue/Slot
 
 import { Playground } from 'docz'
 
-> 个人见解，不要胡喷乱造，感谢🙏。下面的`api`均建立在`v2.6.x`的基础上进行。即不会出现`slot`和`slot-scope`这两个属性。    
+> 个人见解，不要胡喷乱造，感谢🙏。下面的`api`均建立在`v2.6.x`的基础上进行。即不会出现`slot`和`slot-scope`这两个属性。 `v-slot:name='slotProps'` 可简写为 `#name='slotProps'`   
 
 # Slot
 slot 一直是存在的。 渗透在没个组件内部。 我的理解可以认为 `slot(Vue) === children(React)`   
@@ -41,8 +41,46 @@ slot 一直是存在的。 渗透在没个组件内部。 我的理解可以认�
 </form>
 ```
 
+## 具名插槽
+这个要好好掰扯掰扯， 真是要感谢7酱为我解惑～ 感恩胖7～
 
+具名插槽适用于多个插槽并存的情况，区分插槽内容。
+### 举个官方的具名插槽的🌰
+```html
+// baseLayout.vue
+<div class='container'>
+  <header>
+    <slot name='header'/>
+  </header>
+  <main>
+    <slot />
+  </main>
+  <footer>
+    <slot name='footer'/>
+  </footer>
+</div>
 
+// layout.vue
+<BaseLayout>
+  <template #header>
+    <h1>title</h1>
+  </template>
+  
+  <article>这是内容部分<article>
+  <code>我会出现在main标签里</code>
+
+  // 中间这一部分也可以写成
+  <template #default>
+    <article>这是内容部分<article>
+    <code>我会出现在main标签里</code>
+  </template>
+
+  <template #footer>
+    <p>footer content</p>
+  </template>
+</BaseLayout>
+```
+> 不带name的slot会自带default的出口名。会自动包容除具名以外的所有内容。
 
 
 
