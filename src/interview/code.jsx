@@ -1,8 +1,4 @@
-import React, { 
-  useState, 
-  useCallback 
-} from 'react'
-import t from 'prop-types'
+import React from 'react'
 
 import styles from './code.module.less'
 
