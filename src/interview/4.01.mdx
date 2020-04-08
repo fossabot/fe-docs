@@ -1,0 +1,11 @@
+---
+name: 4.01面试题
+menu: interview
+route: /interview/401
+---
+
+1. 前端数据埋点实现方案：
+2. 1*1gif，图片请求带参，引出spa多页面每个页面做数据上报怎么解决，给出方案：每个页面的created里面分别上报埋点请求---》页面内要是有延迟渲染的数据需要上报怎么办？那就换到mounted里面---》如果需要从接口获取的数据呢？自己封装的框架生命周期，async请求都结束后统一上报
+3. keepalive作用极原理
+4. 根据自我介绍项目介绍，聊可视化编辑器实现方案，找方案的过程-》引出可视化编辑器怎么做一个按钮点击的时候，向页面内插入一条数据-》svg轻交互动画（https://juejin.im/post/5d37e1fce51d455d88219fca）
+5. jquery的prop与attr的区别，如：a标签href写相对地址，如何获取完整的绝对地址，即prop，也可location对象host，search，hash等原生拼接

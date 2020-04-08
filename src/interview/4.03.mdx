@@ -1,0 +1,69 @@
+---
+name: 4.03面试题
+menu: interview
+route: /interview/403
+---
+1.  vue双向绑定原理：object.defineproperty缺陷=>vue.set
+数组添加元素set跟get无感知，vue怎么实现的，也就是vue.set的时候，到底做了什么
+vue 2跟3实现双向绑定的区别
+2.  AB测试，有两种布局方式，测试各一半的时候，用户转化率，纯前端怎么做？
+答了math.random，问math.random怎么保证就是严格的
+50%。引导问我高数的极限定义是啥
+3.  电脑显示8位，16位，32位，怎么根据这个计算出显存大小。。。。母鸡，我不会
+4. 问我非计软专业，有没有补过基础课，操作系统，数据结构，算法，问：utf-8跟unicode啥区别
+
+*******
+
+1. webpack 中的loader和plugin
+
+2. react中的useEffect为什么能够调用生命周期函数
+effects的心智模型和componentDidMount以及其他生命周期是不同的，试图找到它们之间完全一致的表达反而更容易使你混淆。想要更有效，你需要“think in effects”，它的心智模型更接近于实现状态同步，而不是响应生命周期事件
+`useEffect`有什么优势？
+* 在渲染结束时执行，所以不会阻塞浏览器渲染进程
+* 自然符合RF理念
+* 不会在服务端渲染时执行
+* 由于在DOM执行完毕之后才执行， 所以能保证拿到状态生效后的DOM属性
+
+多嘴一句写一个🌰来深入了解一下hook
+```js
+function getName(namespace) {
+  console.log('getName:' + namespace.name)
+}
+
+let person = { name: 'A' }
+getName(person)
+
+person = { name: 'B' }
+getName(person)
+
+person = { name: 'C' }
+getName(person)
+```
+
+3. 高阶组件具体怎么用
+`React`中推荐组合由于继承。而`HOC`我的理解就是组合、复用组件逻辑的一个办法。
+`HOC`的参数为组件，返回值为新组件的函数。
+* 不会修改传入的组件, 也不会使用继承来复制其行为
+* 为组件增加特性
+* 不要在render函数中使用`HOC`, 这样会导致每次生成一个新的组件从而导致子树每次都会被卸载和重新挂载
+* `HOC`不会复制原始组件的静态方法，有需要的时候需要手动复制
+* 使用`forwardRef`来传递`ref`
+
+4. 函数组件相对于class组件有什么具体的区别
+* 无生命周期
+* 无state
+* 使用上: 函数类组件直接将jsx return出来，而class组件需要调用render函数
+
+5. js中浅拷贝 深拷贝
+* 浅拷贝: Object.assign | { ...obj }
+* 深拷贝: JSON.stringfiy + JSON.parse | 递归方法处理
+
+6. css中relative 和 absolute
+* relative: 相对定位，不会脱离文档流
+* absolute: 绝对对位, 相对于最近的一个relative的父元素进行定位， 脱离文档流
+
+7. css中的flex
+
+8. http中的304
+
+9. 跨域问题
