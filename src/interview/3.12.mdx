@@ -69,7 +69,7 @@ function debounce(fn, delay) {
 <Playground>
   {() => {
     var originArray = [[1,2,3],[8,9],[6,7],[[12,2,20]]];
-    var formatArray = [ ... new Set(originArray.flat(2)) ].sort((a, b) => a- b)
+    var formatArray = [ ... new Set(originArray.toString().split(',')) ].sort((a, b) => a- b)
     return (
       <p style={ { color: 'white' } }>
         {
