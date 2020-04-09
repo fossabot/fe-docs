@@ -15,6 +15,11 @@ vue 2跟3实现双向绑定的区别
 *******
 
 1. webpack 中的loader和plugin
+* loader: 转换器，操作文件
+* plugin: 扩展器，针对loader结束后，基于事件机制工作，不直接操作文件， 监听打包过程中的某些节点并执行对应的任务
+```md
+  webpack插件是一个具有apply属性的javascript对象。apply属性会被webpack compiler调用， 并且compiler对象可以在整个编译周期访问。
+```
 
 2. react中的useEffect为什么能够调用生命周期函数
 effects的心智模型和componentDidMount以及其他生命周期是不同的，试图找到它们之间完全一致的表达反而更容易使你混淆。想要更有效，你需要“think in effects”，它的心智模型更接近于实现状态同步，而不是响应生命周期事件
@@ -63,7 +68,55 @@ getName(person)
 * absolute: 绝对对位, 相对于最近的一个relative的父元素进行定位， 脱离文档流
 
 7. css中的flex
+* 弹性布局
+* 水平主轴(justify) + 垂直交叉轴(align)
+* display: flex | inline-flex
+* flex-flow: flex-direction | flex-wrap
+* align-self 单个项目覆盖align-items的属性
+* order 数值越小，越靠前
 
-8. http中的304
+8. http中的304    
+not modified 该资源被浏览器缓存无需重新请求服务器
 
 9. 跨域问题
+* 何时跨域
+  - 同一域名不同端口
+  - 同一域名不同协议
+  - 域名对应ip相同
+  - 主域相同子域不同
+  - 不同域名
+* 解决方式
+  - jsonp(jquery 的 ajax jsonp)
+  ```js
+    var s = document.createElement('script')
+    script.type = 'text/javascript'
+    script.src = 'https://xxx.com?callback=handleName'
+
+    function handleName(serverBackInfo) {
+      xxxx
+    }
+  ```
+  - cors 跨域资源共享(withCredentials)
+  - nginx
+  ```bash
+    location / {
+      add_header Access-Control-Allow-Origin *;
+    }
+
+    # 反向代理
+    server {
+      listen      80;
+      server_name www.server.com;
+
+      location /proxy {
+        proxy_pass http://a.server.com:8080;
+        index index.html;
+      }
+    }
+  ```
+  - nodejs 代理
+  ```bash
+    http-proxy-middleware
+  ```
+  - websocket 本身就允许跨域通讯
+  - postMessage(data, origin)
