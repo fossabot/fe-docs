@@ -5,8 +5,85 @@ route: /interview/409
 ---
 
 1. vue,react,angular的设计模式，及区别
-2. 数组合并，去重，排序
+
+2. 数组[1,2,5,16]和[2,3,3,5,6,12]合并，去重，排序
+
+``` javascript
+let a = [1, 2, 5, 16], b = [2, 3, 3, 5, 6, 12]
+c = a.concat(b)
+console.log(c) // => [ 1, 2, 5, 16, 2, 3, 3, 5, 6, 12 ]
+d = [...new Set(c)]
+console.log(d) // => [ 1, 2, 5, 16, 3, 6, 12 ]
+d.sort((m, n) => m - n) // sort会改变原数组
+console.log(d) // [ 1, 2, 3, 5, 6, 12, 16 ]
+```
+```
+常见数组方法：
+1. 会改变原数组的: sort splice foreach + 头尾处理四兄弟（push pop shift unshift）
+2. 不会改变原数组（即处理后会返回新数组）的：map filter some every
+```
+
 3. 数组扁平化 [1,2,[2,3,[4,6,[5,6]],5]]
+``` javascript
+let arr = [1,2,[2,3,[4,6,[5,6]],5]]
+```
+toString()
+``` javascript
+arr.toString().split(',')
+// => ["1", "2", "2", "3", "4", "6", "5", "6", "5"]
+```
+> 缺陷：数组扁平化后所有元素都转为了string（就---图一乐吧）
+
+flat(depth)方法(es6)
+``` javascript
+arr.flat(3) 
+// => [1, 2, 2, 3, 4, 6, 5, 6, 5]
+arr.flat(Infinity) 
+// => [1, 2, 2, 3, 4, 6, 5, 6, 5]
+```
+> 若已知需要扁平化的数组嵌套层级n，flat的参数直接传n即可
+若数组嵌套层级未知，flat参数可传Infinity，会将数组转为一维数组
+
+递归实现
+``` javascript
+function flatten(a) {
+  let newArr = []
+  a.map(item => {
+    if (Array.isArray(item)) {
+      newArr = newArr.concat(flatten(item))
+    } else { 
+      newArr.push(item)
+    }
+  })
+  return newArr
+}
+flatten(arr)
+// => [ 1, 2, 2, 3, 4, 6, 5, 6, 5 ]
+```
+
 4. 对象冻结{people:{name:'胖婶'}}
+```
+Object.freeze()
+冻结：
+不能向这个对象添加新的属性
+不能修改其已有属性的值
+不能删除已有属性
+不能修改该对象已有属性的可枚举性、可配置性、可写性
+-- 这个对象永远是不可变的。该方法返回被冻结的对象。
+```
+``` javascript 
+let a = {people:{name:'胖婶'}}
+a.dog = 'ming'
+console.log(a) // => { people: { name: '胖婶' }, dog: 'ming' }
+a.people.name = '粉'
+console.log(a) // => { people: { name: '粉' }, dog: 'ming' }
+let b = Object.freeze(a) // Object.freeze()返回被冻结的对象
+console.log(a) // => { people: { name: '粉' }, dog: 'ming' }
+console.log(b) // => { people: { name: '粉' }, dog: 'ming' }
+a.dog = '123'
+console.log(a) // => { people: { name: '粉' }, dog: 'ming' }
+console.log(b) // => { people: { name: '粉' }, dog: 'ming' }
+```
 5. 节流函数
+
 6. 手写Object.defineProperties例子实现数据监听
