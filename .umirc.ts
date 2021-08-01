@@ -1,7 +1,7 @@
 import { defineConfig } from 'dumi';
 
 export default defineConfig({
-  outputPath: 'doc-dist',
+  outputPath: 'docs-dist',
   logo: '/icon.png',
   favicon: '/icon.png',
   title: 'ff-docs',
