@@ -1,19 +1,35 @@
 {
-  "name": "FE-study",
-  "version": "2.0.0",
-  "license": "MIT",
+  "private": true,
+  "name": "ff-docs",
   "scripts": {
-    "dev": "docz dev",
-    "build": "docz build",
-    "serve": "docz serve"
+    "start": "dumi dev",
+    "build": "dumi build",
+    "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\""
   },
-  "dependencies": {
-    "antd": "^4.0.2",
-    "docz": "latest",
-    "gatsby-plugin-less": "^3.0.20",
-    "less": "^3.11.1",
-    "prop-types": "^15.7.2",
-    "react": "^16.11.0",
-    "react-dom": "^16.11.0"
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "typings": "dist/index.d.ts",
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,less,md,json}": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "prettier --parser=typescript --write"
+    ]
+  },
+  "devDependencies": {
+    "dumi": "^1.1.23",
+    "lint-staged": "^10.0.7",
+    "prettier": "^2.2.1",
+    "yorkie": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/innocces/fe-docs",
+    "branch": "master",
+    "platform": "github"
   }
 }

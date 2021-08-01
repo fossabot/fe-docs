@@ -1,12 +1,11 @@
 ---
-name: 基础
-menu: HTML
-route: /HTML/questions
+title: Question
 ---
 
-# 基础问答
+### 基础问答
 
-* `html5`有哪些新特性？移除了哪些元素？如何处理`html5`新标签的浏览器兼容问题？如何区分`html`和`html5`？
+- `html5`有哪些新特性？移除了哪些元素？如何处理`html5`新标签的浏览器兼容问题？如何区分`html`和`html5`？
+
 ```js
   HTML5现在已经不是SGML的子集，主要是关于图像、位置、存储、多任务等功能的增加。
     * canvas
@@ -22,17 +21,19 @@ route: /HTML/questions
   <![endif]-->
   是否使用DOCTYPE声明、是否新增结构元素等都可以作为区分HTML和HTML5的标准。
 ```
-> `SGML`是标准通用标记语言，具有极好的扩展性。一般都需要包含`DTD(!DOCTYPE)`   
 
+> `SGML`是标准通用标记语言，具有极好的扩展性。一般都需要包含`DTD(!DOCTYPE)`
 
-* `html`语义化
+- `html`语义化
+
 ```markdown
-首先，内容结构化，结构清晰，更利于浏览器或搜索引擎解析，更好的SEO   
-在脱离css的情况下以文档格式展示，容易阅读   
+首先，内容结构化，结构清晰，更利于浏览器或搜索引擎解析，更好的 SEO  
+在脱离 css 的情况下以文档格式展示，容易阅读  
 阅读源码更便于分块， 便于理解和维护
 ```
 
-* `cookie`、`localStorage`、`sessionStorage`的区别？
+- `cookie`、`localStorage`、`sessionStorage`的区别？
+
 ```
 cookie: 标识用户身份并存储在用户本地终端上的数据，一般均会加密，始终在同源的http请求中携带在浏览器和服务器间来回传递， 大小不超过4k，设置时效内一直有效
 sessionStorage: 存储在浏览器本地， 大小5M或以上， 数据在浏览器窗口关闭之后自动删除。

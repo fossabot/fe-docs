@@ -1,14 +1,15 @@
----
-name: 其他
----
+<div align="center"><img src="./public/icon.png" /></div>
 
-# 前端知识笔记&QA
+[![Netlify Status](https://api.netlify.com/api/v1/badges/f2483510-4f73-47b8-a9cf-3c9c5e692704/deploy-status)](https://app.netlify.com/sites/fe-study/deploys)
 
-## 为什么写这个？
-主要是平时查阅， 复习， 学习的一些笔记～ 嘛～ 好记性不如烂笔头， 偶尔拿出来康康， 毕竟人还是很容易遗忘的。
+## 日常文档
 
-## 其他
-主要会囊括所有我平时看的内容吧～ 所以很杂～
+主要是平时查阅， 复习， 学习的一些笔记  
+嘛～ 好记性不如烂笔头  
+偶尔拿出来康康  
+毕竟人还是很容易遗忘的
 
-## 面试题
-面试题部分大部分由7酱提供_(:з」∠)_
+### 其他
+
+主要会囊括所有我平时看的内容吧  
+所以很杂
